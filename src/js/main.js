@@ -140,8 +140,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // --- SPA ROUTING LOGIC ---
-  const navigateTo = (targetId) => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const navigateTo = (targetId, isInitial = false) => {
+    if (!isInitial) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
     // Handle Mobile Menu Close
     if (mobileMenu) {
@@ -199,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Default redirect to home page
-  navigateTo('home');
+  navigateTo('home', true);
 
   // --- MOBILE NAV MENU TOGGLE ---
   if (mobileMenuBtn && mobileMenu) {
