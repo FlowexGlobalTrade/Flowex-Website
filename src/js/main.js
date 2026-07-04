@@ -39,6 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalCancelBtn = document.getElementById('modal-cancel-btn');
   const modalProductSelect = document.getElementById('inquiry-product');
   const successToast = document.getElementById('success-toast');
+  const toastTitle = document.getElementById('toast-title');
+  const toastSubtitle = document.getElementById('toast-subtitle');
   const getQuoteBtns = document.querySelectorAll('.get-quote-btn');
 
   // Info Modals (Policies & FAQs)
@@ -245,8 +247,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Toast notifier
-  const showToast = () => {
+  const showToast = (title = 'Inquiry Submitted', subtitle = 'Thank you. Our exports desk will contact you within 12 hours.') => {
     if (successToast) {
+      if (toastTitle) toastTitle.textContent = title;
+      if (toastSubtitle) toastSubtitle.textContent = subtitle;
+      
       successToast.classList.remove('translate-y-24', 'opacity-0');
       successToast.classList.add('translate-y-0', 'opacity-100');
       
@@ -551,6 +556,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     backToTopBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // --- SHARE WEBSITE LOGIC ---
+  const shareBtn = document.getElementById('share-btn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', async () => {
+      const shareData = {
+        title: 'Flowex Global Trade LLP',
+        text: 'Partner with Flowex Global Trade LLP for premium Indian agricultural commodity exports, including Grapes, Turmeric, Sugarcane Jaggery, Rice, and Textiles.',
+        url: window.location.href
+      };
+
+      if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+        try {
+          await navigator.share(shareData);
+        } catch (err) {
+          console.log('Share cancelled or failed:', err);
+        }
+      } else {
+        // Fallback: Copy link to clipboard and show toast
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          showToast('Link Copied', 'Website address copied to your clipboard!');
+        } catch (err) {
+          console.error('Failed to copy link:', err);
+        }
+      }
     });
   }
 });

@@ -223,3 +223,20 @@ body {
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(255, 255, 255, 0.02);
 }
 
+/* Infinite Logo Marquee Animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+
