@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const successToast = document.getElementById('success-toast');
   const toastTitle = document.getElementById('toast-title');
   const toastSubtitle = document.getElementById('toast-subtitle');
+  const partnersSection = document.getElementById('partners-section');
   const getQuoteBtns = document.querySelectorAll('.get-quote-btn');
 
   // Info Modals (Policies & FAQs)
@@ -176,6 +177,15 @@ document.addEventListener('DOMContentLoaded', () => {
       // Trigger stats animations on pages with counters
       if (targetId === 'home' || targetId === 'contact') {
         animateStats(targetId);
+      }
+
+      // Show partners logo slider only on Home and Contact pages
+      if (partnersSection) {
+        if (targetId === 'home' || targetId === 'contact') {
+          partnersSection.classList.remove('hidden');
+        } else {
+          partnersSection.classList.add('hidden');
+        }
       }
     }
   };
