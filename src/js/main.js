@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .catch(error => {
         console.error('Error submitting inquiry:', error);
-        alert('Could not submit inquiry automatically. Please email flowexglobaltrade@gmail.com directly.');
+        alert('Could not submit inquiry automatically. Please email info@flowexglobaltrade.com directly.');
       })
       .finally(() => {
         submitBtn.textContent = originalText;
@@ -294,7 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .catch(error => {
         console.error('Error submitting contact form:', error);
-        alert('Could not submit inquiry automatically. Please email flowexglobaltrade@gmail.com directly.');
+        alert('Could not submit inquiry automatically. Please email info@flowexglobaltrade.com directly.');
       })
       .finally(() => {
         submitBtn.textContent = originalText;
@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .catch(error => {
         console.error('Error requesting brochure:', error);
-        alert('Could not submit request automatically. Please email flowexglobaltrade@gmail.com directly.');
+        alert('Could not submit request automatically. Please email info@flowexglobaltrade.com directly.');
       })
       .finally(() => {
         submitBtn.textContent = originalText;
