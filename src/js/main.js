@@ -1,54 +1,45 @@
-// --- CONFIGURATION ---
-// Get your free Web3Forms Access Key from https://web3forms.com
-const WEB3FORMS_ACCESS_KEY = "5b00aa41-c3bc-4625-9c9b-ef798b37686a"; 
+/**
+ * Flowex Global Trade LLP - Client-side Main Script
+ * Version: 2.0 (Multi-Page SEO Optimized)
+ * Web3Forms Key: 5b00aa41-c3bc-4625-9c9b-ef798b37686a
+ */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // --- ELEMENTS ---
   const htmlElement = document.documentElement;
+
+  // Web3Forms configuration (no private keys/secrets exposed)
+  const WEB3FORMS_ACCESS_KEY = "5b00aa41-c3bc-4625-9c9b-ef798b37686a";
+
+  // Elements
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
-  const themeToggleBtn = document.getElementById('theme-toggle-btn');
-  const themeDropdown = document.getElementById('theme-dropdown');
-  const activeThemeIcon = document.getElementById('active-theme-icon');
-  const activeThemeText = document.getElementById('active-theme-text');
-  
-  // Theme Options
-  const themeLightBtn = document.getElementById('theme-light');
-  const themeDarkBtn = document.getElementById('theme-dark');
-  const themeSystemBtn = document.getElementById('theme-system');
-
-  // SPA Navigation
-  const navLinks = document.querySelectorAll('.nav-link');
-  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-  
-  const sections = {
-    home: document.getElementById('home-section'),
-    about: document.getElementById('about-section'),
-    products: document.getElementById('products-section'),
-    services: document.getElementById('services-section'),
-    contact: document.getElementById('contact-section'),
-  };
-
-  // Modals & Triggers
   const inquiryModal = document.getElementById('inquiry-modal');
   const inquiryForm = document.getElementById('inquiry-form');
-  const contactInquiryForm = document.getElementById('contact-inquiry-form');
+  const contactInquiryForm = document.getElementById('contact-form');
   const brochureForm = document.getElementById('brochure-form');
-  
   const modalCloseBtn = document.getElementById('modal-close-btn');
   const modalCancelBtn = document.getElementById('modal-cancel-btn');
   const modalProductSelect = document.getElementById('inquiry-product');
   const successToast = document.getElementById('success-toast');
   const toastTitle = document.getElementById('toast-title');
   const toastSubtitle = document.getElementById('toast-subtitle');
-  const partnersSection = document.getElementById('partners-section');
   const getQuoteBtns = document.querySelectorAll('.get-quote-btn');
 
-  // Info Modals (Policies & FAQs)
+  // Info Modal Elements
   const infoModal = document.getElementById('info-modal');
   const infoModalTitle = document.getElementById('info-modal-title');
   const infoModalBody = document.getElementById('info-modal-body');
   const infoModalCloseBtn = document.getElementById('info-modal-close-btn');
+
+  // Theme Toggler Elements
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+  const themeDropdown = document.getElementById('theme-dropdown');
+  const activeThemeIcon = document.getElementById('active-theme-icon');
+  const activeThemeText = document.getElementById('active-theme-text');
+  
+  const themeLightBtn = document.getElementById('theme-light');
+  const themeDarkBtn = document.getElementById('theme-dark');
+  const themeSystemBtn = document.getElementById('theme-system');
 
   // --- THEME LOGIC (LIGHT, DARK, SYSTEM) ---
   const applyTheme = (theme) => {
@@ -58,9 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
       htmlElement.classList.remove('dark');
     }
 
-    // Update UI selector icons
     let iconHTML = '';
-    let text = 'System';
+    let text = '';
+
     if (theme === 'light') {
       iconHTML = `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 9H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>`;
       text = 'Light';
@@ -71,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
       iconHTML = `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>`;
       text = 'System';
     }
-    
+
     if (activeThemeIcon) activeThemeIcon.innerHTML = iconHTML;
     if (activeThemeText) activeThemeText.textContent = text;
   };
@@ -119,10 +110,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- STATS COUNTER ANIMATION ---
-  const animateStats = (sectionId) => {
-    const statsElements = sections[sectionId].querySelectorAll('.stat-count');
+  const animateStats = () => {
+    const statsElements = document.querySelectorAll('.stat-count');
     statsElements.forEach(el => {
       const target = parseInt(el.getAttribute('data-target'), 10);
+      if (isNaN(target)) return;
       let count = 0;
       const speed = target / 40; // increment step
       el.textContent = "0";
@@ -139,79 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
       updateCount();
     });
   };
-
-  // --- SPA ROUTING LOGIC ---
-  const navigateTo = (targetId, isInitial = false) => {
-    if (!isInitial) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Handle Mobile Menu Close
-    if (mobileMenu) {
-      mobileMenu.classList.add('hidden');
-      mobileMenuBtn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>`;
-    }
-
-    // Toggle active sections
-    if (sections[targetId]) {
-      Object.keys(sections).forEach(key => {
-        sections[key].classList.remove('active');
-      });
-      sections[targetId].classList.add('active');
-
-      // Update indicators
-      navLinks.forEach(link => {
-        link.classList.remove('text-sky-600', 'dark:text-sky-400', 'border-b-2', 'border-sky-500');
-        if (link.getAttribute('data-target') === targetId) {
-          link.classList.add('text-sky-600', 'dark:text-sky-400', 'border-b-2', 'border-sky-500');
-        }
-      });
-
-      mobileNavLinks.forEach(link => {
-        link.classList.remove('text-sky-500', 'border-l-2', 'border-sky-500', 'pl-2');
-        if (link.getAttribute('data-target') === targetId) {
-          link.classList.add('text-sky-500', 'border-l-2', 'border-sky-500', 'pl-2');
-        }
-      });
-
-      // Trigger stats animations on pages with counters
-      if (targetId === 'home' || targetId === 'contact') {
-        animateStats(targetId);
-      }
-
-      // Show partners logo slider only on Home and Contact pages
-      if (partnersSection) {
-        if (targetId === 'home' || targetId === 'contact') {
-          partnersSection.classList.remove('hidden');
-        } else {
-          partnersSection.classList.add('hidden');
-        }
-      }
-    }
-  };
-
-  // Make navigateTo globally accessible so inline attributes can call it
-  window.navigateTo = navigateTo;
-
-  // Nav Link Click Handlers
-  navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = link.getAttribute('data-target');
-      navigateTo(target);
-    });
-  });
-
-  mobileNavLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = link.getAttribute('data-target');
-      navigateTo(target);
-    });
-  });
-
-  // Default redirect to home page
-  navigateTo('home', true);
+  animateStats();
 
   // --- MOBILE NAV MENU TOGGLE ---
   if (mobileMenuBtn && mobileMenu) {
@@ -225,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- MODAL CONTROLS (INQUIRY & QUOTE) ---
   const openInquiryModal = (productName = '') => {
+    if (!inquiryModal) return;
     inquiryModal.classList.remove('hidden');
     inquiryModal.classList.add('flex');
     document.body.style.overflow = 'hidden'; 
@@ -237,10 +158,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const closeInquiryModal = () => {
+    if (!inquiryModal) return;
     inquiryModal.classList.add('hidden');
     inquiryModal.classList.remove('flex');
     document.body.style.overflow = '';
-    inquiryForm.reset();
+    if (inquiryForm) inquiryForm.reset();
   };
 
   window.openInquiryModal = openInquiryModal;
@@ -259,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Toast notifier
-  const showToast = (title = 'Inquiry Submitted', subtitle = 'Thank you. Our exports desk will contact you within 12 hours.') => {
+  const showToast = (title = 'Inquiry Submitted', subtitle = 'Thank you. Our trade desk will contact you within 12 hours.') => {
     if (successToast) {
       if (toastTitle) toastTitle.textContent = title;
       if (toastSubtitle) toastSubtitle.textContent = subtitle;
@@ -279,11 +201,6 @@ document.addEventListener('DOMContentLoaded', () => {
     inquiryForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      if (WEB3FORMS_ACCESS_KEY === "YOUR_ACCESS_KEY_HERE") {
-        alert("Please set your Web3Forms Access Key at the top of src/js/main.js to enable form submissions.");
-        return;
-      }
-
       const name = document.getElementById('inquiry-name').value;
       const email = document.getElementById('inquiry-email').value;
       const company = document.getElementById('inquiry-company').value;
@@ -297,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
         company: company,
         product: product,
         message: message,
-        subject: `New Export Inquiry: ${product} from ${company}`
+        subject: `New Product Inquiry: ${product} from ${company}`
       };
 
       const submitBtn = inquiryForm.querySelector('button[type="submit"]');
@@ -320,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
           closeInquiryModal();
         } else {
           console.error('Web3Forms Error:', data);
-          alert('Submission failed: ' + (data.message || 'Please check your Access Key.'));
+          alert('Submission failed: ' + (data.message || 'Please check your connection.'));
         }
       })
       .catch(error => {
@@ -334,14 +251,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Contact Form Submission
   if (contactInquiryForm) {
     contactInquiryForm.addEventListener('submit', (e) => {
       e.preventDefault();
-
-      if (WEB3FORMS_ACCESS_KEY === "YOUR_ACCESS_KEY_HERE") {
-        alert("Please set your Web3Forms Access Key at the top of src/js/main.js to enable form submissions.");
-        return;
-      }
 
       const name = document.getElementById('contact-name').value;
       const email = document.getElementById('contact-email').value;
@@ -352,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
         access_key: WEB3FORMS_ACCESS_KEY,
         name: name,
         email: email,
-        subject: `New Trade Inquiry: ${subjectLine}`,
+        subject: `New Contact Trade Inquiry: ${subjectLine}`,
         message: message
       };
 
@@ -376,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
           contactInquiryForm.reset();
         } else {
           console.error('Web3Forms Error:', data);
-          alert('Submission failed: ' + (data.message || 'Please check your Access Key.'));
+          alert('Submission failed: ' + (data.message || 'Please check your connection.'));
         }
       })
       .catch(error => {
@@ -390,14 +303,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Brochure Request Form
   if (brochureForm) {
     brochureForm.addEventListener('submit', (e) => {
       e.preventDefault();
-
-      if (WEB3FORMS_ACCESS_KEY === "YOUR_ACCESS_KEY_HERE") {
-        alert("Please set your Web3Forms Access Key at the top of src/js/main.js to enable form submissions.");
-        return;
-      }
 
       const email = brochureForm.querySelector('input[type="email"]').value;
 
@@ -428,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
           brochureForm.reset();
         } else {
           console.error('Web3Forms Error:', data);
-          alert('Submission failed: ' + (data.message || 'Please check your Access Key.'));
+          alert('Submission failed: ' + (data.message || 'Please check your connection.'));
         }
       })
       .catch(error => {
@@ -442,13 +351,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- PRODUCTS GRID FILTERING (Slide 3) ---
+  // --- PRODUCTS GRID FILTERING (products.html) ---
   const productFilterBtns = document.querySelectorAll('.product-filter-btn');
   const productItems = document.querySelectorAll('.product-category-section');
 
   productFilterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      // Toggle button active states
       productFilterBtns.forEach(b => {
         b.classList.remove('active', 'bg-[#0a0a0a]', 'text-white', 'dark:bg-white', 'dark:text-black');
         b.classList.add('border', 'border-zinc-200', 'dark:border-zinc-800', 'text-zinc-500', 'dark:text-zinc-400');
@@ -459,7 +367,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const filterVal = btn.getAttribute('data-filter');
 
-      // Filter grid cards
       productItems.forEach(item => {
         if (filterVal === 'all' || item.getAttribute('data-category') === filterVal) {
           item.classList.remove('hidden');
@@ -470,7 +377,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // --- PRODUCT CATALOGUE SEARCH & FILTER (catalogue.html) ---
+  const catalogueSearch = document.getElementById('catalogue-search');
+  const catalogueFilter = document.getElementById('catalogue-category-filter');
+  const catalogueItems = document.querySelectorAll('.catalogue-item');
 
+  const filterCatalogue = () => {
+    const searchVal = catalogueSearch ? catalogueSearch.value.toLowerCase() : '';
+    const filterVal = catalogueFilter ? catalogueFilter.value : 'all';
+
+    catalogueItems.forEach(item => {
+      const name = item.getAttribute('data-name') ? item.getAttribute('data-name').toLowerCase() : '';
+      const hsn = item.getAttribute('data-hsn') ? item.getAttribute('data-hsn').toLowerCase() : '';
+      const category = item.getAttribute('data-category') || '';
+      
+      const matchesSearch = name.includes(searchVal) || hsn.includes(searchVal);
+      const matchesCategory = filterVal === 'all' || category === filterVal;
+
+      if (matchesSearch && matchesCategory) {
+        item.classList.remove('hidden');
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+  };
+
+  if (catalogueSearch) catalogueSearch.addEventListener('input', filterCatalogue);
+  if (catalogueFilter) catalogueFilter.addEventListener('change', filterCatalogue);
 
   // --- INFO MODAL DATA BINDING ---
   const infoContents = {
@@ -478,11 +411,11 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'Privacy Policy',
       body: `
         <p class="mb-2 text-xs text-zinc-400">Last updated: June 4, 2026</p>
-        <p class="mb-4">Flowex Global respects your privacy. This policy outlines how we handle the personal information provided via inquiries on our website.</p>
+        <p class="mb-4">Flowex Global Trade LLP respects your privacy. This policy outlines how we handle the personal information provided via inquiries on our website.</p>
         <h4 class="font-bold mb-2 mt-4 text-zinc-900 dark:text-white uppercase tracking-wider text-[11px]">1. Data Collection</h4>
-        <p class="mb-4">We collect information that you explicitly submit in our Inquiry forms, including your name, email, company name, and specific cargo trade requirements.</p>
+        <p class="mb-4">We collect information that you explicitly submit in our Inquiry forms, including your name, email, company name, and specific trade coordination requirements.</p>
         <h4 class="font-bold mb-2 mt-4 text-zinc-900 dark:text-white uppercase tracking-wider text-[11px]">2. Data Use</h4>
-        <p class="mb-4">This data is solely used to process quote requests and coordinate shipping logs. We do not distribute database information to third parties.</p>
+        <p class="mb-4">This data is solely used to process quote requests and coordinate communication. We do not distribute database information to third parties.</p>
       `
     },
     'terms-of-service': {
@@ -491,19 +424,19 @@ document.addEventListener('DOMContentLoaded', () => {
         <p class="mb-2 text-xs text-zinc-400">Last updated: June 4, 2026</p>
         <p class="mb-4">By visiting our website and submitting corporate inquiries, you agree to comply with the terms set forth below.</p>
         <h4 class="font-bold mb-2 mt-4 text-zinc-900 dark:text-white uppercase tracking-wider text-[11px]">1. Commercial Inquiries Only</h4>
-        <p class="mb-4">Our portal and specifications database are intended for B2B export evaluations. Spamming or malicious operations are strictly prohibited.</p>
-        <h4 class="font-bold mb-2 mt-4 text-zinc-900 dark:text-white uppercase tracking-wider text-[11px]">2. Proforma Estimations</h4>
-        <p class="mb-4">Online HSN catalog listings and product details are subject to regular updates based on market changes and shipping line quotes.</p>
+        <p class="mb-4">Our portal and specifications database are intended for B2B export and trade facilitation evaluations. Spamming or malicious operations are strictly prohibited.</p>
+        <h4 class="font-bold mb-2 mt-4 text-zinc-900 dark:text-white uppercase tracking-wider text-[11px]">2. Product Information</h4>
+        <p class="mb-4">Online HSN catalog listings and product details are subject to updates based on supply availability, seasonal parameters, and regulatory guidelines.</p>
       `
     },
     'shipping-policy': {
-      title: 'Shipping & Logistics Policy',
+      title: 'Logistics Coordination Policy',
       body: `
-        <p class="mb-4">Flowex Global coordinates direct ocean container routing, customs clearance, and refrigerated transit loops across global ports.</p>
+        <p class="mb-4">Flowex Global Trade LLP coordinates trade logistics, custom documentation assistance, and transport routing through our vetted networks of licensed customs house agents (CHAs) and freight forwarding partners.</p>
         <h4 class="font-bold mb-2 mt-4 text-zinc-900 dark:text-white uppercase tracking-wider text-[11px]">Incoterms Alignment</h4>
-        <p class="mb-4">We actively transact under standard FOB (Free On Board), CIF (Cost, Insurance & Freight), and CFR (Cost and Freight) shipping terms. Specific client Incoterms parameters can be documented in individual contract agreements.</p>
-        <h4 class="font-bold mb-2 mt-4 text-zinc-900 dark:text-white uppercase tracking-wider text-[11px]">Reefer Cold Chain</h4>
-        <p class="mb-4">Fresh grapes and seasonal yields are packed in high-efficiency thermal reefer container shipments, maintaining 100% cold loop integrity from dispatch to port release.</p>
+        <p class="mb-4">We coordinate transactions under standard FOB (Free On Board), CIF (Cost, Insurance & Freight), and CFR (Cost and Freight) shipping terms based on buyer requirements.</p>
+        <h4 class="font-bold mb-2 mt-4 text-zinc-900 dark:text-white uppercase tracking-wider text-[11px]">Transport Coordination</h4>
+        <p class="mb-4">Cold-chain, reefer containers, and dry bulk transit routes are arranged via established, third-party logistics operators to protect product quality from dispatch to delivery.</p>
       `
     },
     'faq': {
@@ -511,16 +444,16 @@ document.addEventListener('DOMContentLoaded', () => {
       body: `
         <div class="space-y-4">
           <div>
-            <h5 class="font-bold text-zinc-900 dark:text-white">Q: Do you hold APEDA & ISO certifications?</h5>
-            <p class="text-zinc-500 dark:text-zinc-400 mt-1">A: Yes, Flowex Global is an APEDA-registered exporter and complies with ISO 22000 food safety management certifications.</p>
+            <h5 class="font-bold text-zinc-900 dark:text-white">Q: What credentials do you hold for exporting?</h5>
+            <p class="text-zinc-500 dark:text-zinc-400 mt-1">A: Flowex Global Trade LLP is registered under the DGFT (Directorate General of Foreign Trade) and is a registered MSME. We coordinate exports and inspections matching APEDA guidelines and standard trade requirements.</p>
           </div>
           <div>
-            <h5 class="font-bold text-zinc-900 dark:text-white">Q: What is the typical lead time for bulk orders?</h5>
-            <p class="text-zinc-500 dark:text-zinc-400 mt-1">A: Sourcing and port-level container loading typically require 7–10 working days, subject to the specific product and destination port distance.</p>
+            <h5 class="font-bold text-zinc-900 dark:text-white">Q: What is the typical coordination lead time?</h5>
+            <p class="text-zinc-500 dark:text-zinc-400 mt-1">A: Sourcing, verification, packaging, and shipping preparation coordination typically require 7–14 working days, depending on product specification and availability.</p>
           </div>
           <div>
-            <h5 class="font-bold text-zinc-900 dark:text-white">Q: Do you supply third-party inspections?</h5>
-            <p class="text-zinc-500 dark:text-zinc-400 mt-1">A: Yes, pre-shipment inspections by SGS or other internationally accredited bodies can be scheduled on demand.</p>
+            <h5 class="font-bold text-zinc-900 dark:text-white">Q: Do you coordinate third-party inspections?</h5>
+            <p class="text-zinc-500 dark:text-zinc-400 mt-1">A: Yes, independent pre-shipment inspections by SGS, Bureau Veritas, or other accredited bodies can be coordinated on demand to verify quality parameters.</p>
           </div>
         </div>
       `
@@ -531,16 +464,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = infoContents[key];
     if (!data) return;
 
-    infoModalTitle.textContent = data.title;
-    infoModalBody.innerHTML = data.body;
-    infoModal.classList.remove('hidden');
-    infoModal.classList.add('flex');
+    if (infoModalTitle) infoModalTitle.textContent = data.title;
+    if (infoModalBody) infoModalBody.innerHTML = data.body;
+    if (infoModal) {
+      infoModal.classList.remove('hidden');
+      infoModal.classList.add('flex');
+    }
     document.body.style.overflow = 'hidden';
   };
 
   const closeInfoModal = () => {
-    infoModal.classList.add('hidden');
-    infoModal.classList.remove('flex');
+    if (infoModal) {
+      infoModal.classList.add('hidden');
+      infoModal.classList.remove('flex');
+    }
     document.body.style.overflow = '';
   };
 
@@ -577,7 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
     shareBtn.addEventListener('click', async () => {
       const shareData = {
         title: 'Flowex Global Trade LLP',
-        text: 'Partner with Flowex Global Trade LLP for premium Indian agricultural commodity exports, including Grapes, Turmeric, Sugarcane Jaggery, Rice, and Textiles.',
+        text: 'Partner with Flowex Global Trade LLP for reliable Indian product exports and trade coordination.',
         url: window.location.href
       };
 
@@ -588,7 +525,6 @@ document.addEventListener('DOMContentLoaded', () => {
           console.log('Share cancelled or failed:', err);
         }
       } else {
-        // Fallback: Copy link to clipboard and show toast
         try {
           await navigator.clipboard.writeText(window.location.href);
           showToast('Link Copied', 'Website address copied to your clipboard!');
