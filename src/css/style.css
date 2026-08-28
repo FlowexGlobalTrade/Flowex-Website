@@ -205,7 +205,7 @@ body {
 @media (max-width: 768px) {
   .timeline-line::before {
     left: 24px;
-    transform: none;
+    transform: translateX(-50%);
   }
 }
 
