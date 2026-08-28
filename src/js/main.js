@@ -1,5 +1,5 @@
 /**
- * Flowex Global Trade LLP - Client-side Main Script
+ * Flowex Globaltrade LLP - Client-side Main Script
  * Version: 2.0 (Multi-Page SEO Optimized)
  * Web3Forms Key: 5b00aa41-c3bc-4625-9c9b-ef798b37686a
  */
@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'Privacy Policy',
       body: `
         <p class="mb-2 text-xs text-zinc-400">Last updated: June 4, 2026</p>
-        <p class="mb-4">Flowex Global Trade LLP respects your privacy. This policy outlines how we handle the personal information provided via inquiries on our website.</p>
+        <p class="mb-4">Flowex Globaltrade LLP respects your privacy. This policy outlines how we handle the personal information provided via inquiries on our website.</p>
         <h4 class="font-bold mb-2 mt-4 text-zinc-900 dark:text-white uppercase tracking-wider text-[11px]">1. Data Collection</h4>
         <p class="mb-4">We collect information that you explicitly submit in our Inquiry forms, including your name, email, company name, and specific trade coordination requirements.</p>
         <h4 class="font-bold mb-2 mt-4 text-zinc-900 dark:text-white uppercase tracking-wider text-[11px]">2. Data Use</h4>
@@ -432,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'shipping-policy': {
       title: 'Logistics Coordination Policy',
       body: `
-        <p class="mb-4">Flowex Global Trade LLP coordinates trade logistics, custom documentation assistance, and transport routing through our vetted networks of licensed customs house agents (CHAs) and freight forwarding partners.</p>
+        <p class="mb-4">Flowex Globaltrade LLP coordinates trade logistics, custom documentation assistance, and transport routing through our vetted networks of licensed customs house agents (CHAs) and freight forwarding partners.</p>
         <h4 class="font-bold mb-2 mt-4 text-zinc-900 dark:text-white uppercase tracking-wider text-[11px]">Incoterms Alignment</h4>
         <p class="mb-4">We coordinate transactions under standard FOB (Free On Board), CIF (Cost, Insurance & Freight), and CFR (Cost and Freight) shipping terms based on buyer requirements.</p>
         <h4 class="font-bold mb-2 mt-4 text-zinc-900 dark:text-white uppercase tracking-wider text-[11px]">Transport Coordination</h4>
@@ -445,7 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="space-y-4">
           <div>
             <h5 class="font-bold text-zinc-900 dark:text-white">Q: What credentials do you hold for exporting?</h5>
-            <p class="text-zinc-500 dark:text-zinc-400 mt-1">A: Flowex Global Trade LLP is registered under the DGFT (Directorate General of Foreign Trade) and is a registered MSME. We coordinate exports and inspections matching APEDA guidelines and standard trade requirements.</p>
+            <p class="text-zinc-500 dark:text-zinc-400 mt-1">A: Flowex Globaltrade LLP is registered under the DGFT (Directorate General of Foreign Trade) and is a registered MSME. We coordinate exports and inspections matching APEDA guidelines and standard trade requirements.</p>
           </div>
           <div>
             <h5 class="font-bold text-zinc-900 dark:text-white">Q: What is the typical coordination lead time?</h5>
@@ -513,8 +513,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (shareBtn) {
     shareBtn.addEventListener('click', async () => {
       const shareData = {
-        title: 'Flowex Global Trade LLP',
-        text: 'Partner with Flowex Global Trade LLP for reliable Indian product exports and trade coordination.',
+        title: 'Flowex Globaltrade LLP',
+        text: 'Partner with Flowex Globaltrade LLP for reliable Indian product exports and trade coordination.',
         url: window.location.href
       };
 
